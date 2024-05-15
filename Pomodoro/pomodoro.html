@@ -1,0 +1,124 @@
+
+ <!DOCTYPE html>
+ <html lang="en" >
+ 
+ <head>
+   <meta charset="UTF-8">
+   <title>Pomodoro Timer</title>
+   
+   
+   
+       <link rel="stylesheet" href="pomodoro.css">
+ 
+   
+ </head>
+ 
+ <body>
+ 
+   <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+ 
+ <div class="container">
+  
+   <h1>TimeTamer</h1>
+   
+   <div id="pomodoro">  
+  
+  <img  style="width:350px; height:350px"> 
+     <div id="status"></div>
+     <div class="timerDisplay">25:00</div>
+     <button id="start-btn" class="btn">START</button>
+   </div>
+   <div class="worktime">
+     <p id="workinsert"></p>
+   </div>
+   <div class="settings">
+     <div id="work">
+       <p>Work Duration</p>
+       <button class="btn-settings" id="work-plus">+</button>
+       <div><span id="work-min">25</span> mins</div>
+       <button class="btn-settings" id="work-minus">-</button>
+     </div>
+   
+     <button id="reset" class="btn">RESET</button>
+     
+     <div id="break">
+       <p>Break Duration</p>
+       <button class="btn-settings" id="break-plus">+</button>
+       <div><span id="break-min">5</span> mins</div>
+       <button class="btn-settings" id="break-minus">-</button>
+     </div>
+   </div>
+<!--   
+   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+
+    import {
+      getDatabase,
+      get,
+      ref,
+      child,
+    } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+   
+    const database = firebase.database();
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-k1Zpy8_ChzYNU-FZPZqhKrhN7guLZcA",
+      authDomain: "final-4c396.firebaseapp.com",
+      projectId: "final-4c396",
+      storageBucket: "final-4c396.appspot.com",
+      messagingSenderId: "295283438453",
+      appId: "1:295283438453:web:3bfdd15e1ebaa1e4e4993c",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const auth = getAuth(app);
+    const dbref = ref(db);
+
+   
+
+    function updateWorkedTime(minutes) {
+ 
+    const today = new Date().toISOString().split('T')[0];
+
+
+    database.ref('userlist/user.uid/workedTime/' + today).transaction((currentWorkedTime) => {
+
+        if (!currentWorkedTime) {
+            return minutes;
+        } 
+
+        return currentWorkedTime + minutes;
+    });
+}
+function updateDisplayedWorkedTime() {
+    const today = new Date().toISOString().split('T')[0];
+
+    // Get the worked time for the current date
+    database.ref('userlist/user.uid/workedTime/' + today).once('value')
+        .then((snapshot) => {
+            const workedTime = snapshot.val() || 0;
+            document.getElementById('workinsert').innerText = `Worked time today: ${workedTime} minutes`;
+        })
+        .catch((error) => {
+            console.error('Error fetching worked time:', error);
+        });
+}
+
+// Update displayed worked time when the page loads
+updateDisplayedWorkedTime();
+
+   /*  MainForm.addEventListener("submit", SignInUser); */
+  </script> -->
+   
+ 
+     <script  src="pomodoro.js"></script>
+ 
+ 
+ 
+ 
+ </body>
+ 
+ </html>

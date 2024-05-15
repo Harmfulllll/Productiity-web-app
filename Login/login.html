@@ -1,0 +1,111 @@
+<!-- https://colorhunt.co/palette/c4dfdfd2e9e9e3f4f4f8f6f4 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="login.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <section>
+      <div class="form-box">
+        <div class="form-value">
+          <form action="" id="mainform">
+            <h1>Login</h1>
+            <div class="inputbox">
+              <ion-icon name="mail-outline"></ion-icon>
+              <input id="em" type="email" required />
+              <label for="">Email</label>
+            </div>
+            <div class="inputbox">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <input id="pass" type="password" required />
+              <label for="">Password</label>
+            </div>
+            <div class="forget">
+              <label for=""
+                ><input type="checkbox" />Remember Me
+                <a href="#">Forget Password</a></label
+              >
+            </div>
+            <button id="submit">Log in</button>
+            <div class="register">
+              <p>Don't have a account? <a href="#">Register</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+
+      import {
+        getDatabase,
+        get,
+        ref,
+        child,
+      } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyD-k1Zpy8_ChzYNU-FZPZqhKrhN7guLZcA",
+        authDomain: "final-4c396.firebaseapp.com",
+        projectId: "final-4c396",
+        storageBucket: "final-4c396.appspot.com",
+        messagingSenderId: "295283438453",
+        appId: "1:295283438453:web:3bfdd15e1ebaa1e4e4993c",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase();
+      const auth = getAuth(app);
+      const dbref = ref(db);
+
+      let email = document.getElementById("em");
+      let password = document.getElementById("pass");
+      let MainForm = document.getElementById("mainform");
+
+      let SignInUser = (evt) => {
+        evt.preventDefault();
+
+        signInWithEmailAndPassword(auth, email.value, password.value)
+          .then((credentials) => {
+            get(child(dbref, "userlist/" + credentials.user.uid)).then(
+              (snapshot) => {
+                if (snapshot.exists) {
+                  sessionStorage.setItem(
+                    "user-info",
+                    JSON.stringify({
+                      Email: snapshot.val().email,
+                    })
+                  );
+                  sessionStorage.setItem(
+                    "user-creds",
+                    JSON.stringify(credentials.user)
+                  );
+                  window.location.href = "../Dashboard/dash.html";
+                }
+              }
+            );
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+      };
+      MainForm.addEventListener("submit", SignInUser);
+    </script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
